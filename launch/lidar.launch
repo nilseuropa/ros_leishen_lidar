@@ -1,0 +1,7 @@
+<launch>
+    <node pkg="ros_leishen_lidar" type="lidar_publisher" name="lidar_publisher" output="screen">
+    <param name="port" value="/dev/ttyUSB0"/>
+	  <param name="frame_id" value="base_laser_link"/>
+    </node>
+    <node pkg="tf" type="static_transform_publisher" name="static" args="0 0 0 0 0 0 odom base_laser_link 100"/>
+</launch>
