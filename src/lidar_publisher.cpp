@@ -12,14 +12,16 @@ int main(int argc, char **argv)
 
     std::string port;
     std::string frame_id;
+    std::string topic;
 
     priv_nh.param("port", port, std::string("/dev/ttyUSB0"));
     priv_nh.param("frame_id", frame_id, std::string("laser_link"));
+    priv_nh.param("topic", topic, std::string("scan"));
 
     boost::asio::io_service io;
     try{
         n301_lidar_driver::n301n_lidar laser(port, 115200, io);
-        ros::Publisher laser_pub = nh.advertise<sensor_msgs::LaserScan>("scan", 1000);
+        ros::Publisher laser_pub = nh.advertise<sensor_msgs::LaserScan>(topic, 1000);
 
         while(ros::ok()){
             sensor_msgs::LaserScan::Ptr scan(new sensor_msgs::LaserScan);
